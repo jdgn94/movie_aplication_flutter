@@ -63,4 +63,10 @@ class Movie {
     overview = response['overview'];
     releaseDate = response['release_date'];
   }
+
+  getImagePost() {
+    if (posterPath == null)
+      return 'https://homestaymatch.com/images/no-image-available.png';
+    return 'https://image.tmdb.org/t/p/w500/$posterPath';
+  }
 }
