@@ -52,6 +52,7 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _swiperFooter(BuildContext context) {
+    moviesProvider.getPopulars();
     return Container(
       width: double.infinity,
       child: Column(
@@ -65,11 +66,14 @@ class HomePage extends StatelessWidget {
             ),
           ),
           SizedBox(height: 5.0),
-          FutureBuilder(
-            future: moviesProvider.getPopulars(),
+          StreamBuilder(
+            stream: moviesProvider.popularsStream,
             builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
               if (snapshot.hasData) {
-                return CardSwiperFooterWidget(movies: snapshot.data);
+                return CardSwiperFooterWidget(
+                  movies: snapshot.data,
+                  nextPage: moviesProvider.getPopulars,
+                );
               } else {
                 return Container(
                   height: 100.0,
