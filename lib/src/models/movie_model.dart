@@ -15,6 +15,7 @@ class Movies {
 }
 
 class Movie {
+  String uniqId;
   double popularity;
   int voteCount;
   bool video;
@@ -68,5 +69,11 @@ class Movie {
     if (posterPath == null)
       return 'https://homestaymatch.com/images/no-image-available.png';
     return 'https://image.tmdb.org/t/p/w500/$posterPath';
+  }
+
+  getBackgroundImg() {
+    if (posterPath == null)
+      return 'https://homestaymatch.com/images/no-image-available.png';
+    return 'https://image.tmdb.org/t/p/w500/$backdropPath';
   }
 }

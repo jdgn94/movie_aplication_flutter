@@ -37,17 +37,21 @@ class CardSwiperFooterWidget extends StatelessWidget {
   }
 
   Widget _createCard(BuildContext context, Movie movie) {
-    return Container(
+    movie.uniqId = '${movie.id}-footer';
+    final card = Container(
       margin: EdgeInsets.only(right: 15.0, left: 15.0),
       child: Column(
         children: <Widget>[
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20.0),
-            child: FadeInImage(
-              image: NetworkImage(movie.getImagePost()),
-              placeholder: AssetImage('assets/img/no-image.jpg'),
-              fit: BoxFit.cover,
-              height: 160.0,
+          Hero(
+            tag: movie.uniqId,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20.0),
+              child: FadeInImage(
+                image: NetworkImage(movie.getImagePost()),
+                placeholder: AssetImage('assets/img/no-image.jpg'),
+                fit: BoxFit.cover,
+                height: 160.0,
+              ),
             ),
           ),
           SizedBox(height: 5.0),
@@ -59,21 +63,30 @@ class CardSwiperFooterWidget extends StatelessWidget {
         ],
       ),
     );
+
+    return GestureDetector(
+      child: card,
+      onTap: () => Navigator.pushNamed(context, 'details', arguments: movie),
+    );
   }
 
+  // esta tarjeta ya no se usa pero la dejo para futuras referencias
   List<Widget> _cards(BuildContext context) {
     return movies.map((movie) {
       return Container(
         margin: EdgeInsets.only(right: 15.0, left: 15.0),
         child: Column(
           children: <Widget>[
-            ClipRRect(
-              borderRadius: BorderRadius.circular(20.0),
-              child: FadeInImage(
-                image: NetworkImage(movie.getImagePost()),
-                placeholder: AssetImage('assets/img/no-image.jpg'),
-                fit: BoxFit.cover,
-                height: 160.0,
+            Hero(
+              tag: movie.id,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20.0),
+                child: FadeInImage(
+                  image: NetworkImage(movie.getImagePost()),
+                  placeholder: AssetImage('assets/img/no-image.jpg'),
+                  fit: BoxFit.cover,
+                  height: 160.0,
+                ),
               ),
             ),
             SizedBox(height: 5.0),
